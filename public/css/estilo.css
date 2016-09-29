@@ -1,0 +1,46 @@
+@import "font-awesome";
+
+/* HEADER - MENU */
+.navbar {
+	min-height: 90px;
+	margin-bottom:0;
+}
+
+.no-padding{
+	padding:0;	
+}
+
+.no-padding > ul > li > a{
+	color:#000;
+}
+
+.padding{
+	padding-left: 4px;
+}
+
+/* TELA DE INICIO FORMULÁRIOS */
+
+.adicionar{
+	margin:10px;
+}
+
+/* BUTTONS */
+.btn-add{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+/*ICONS*/
+.fa{
+	font-size:20px;
+	color:#000;
+}
+
+.fa-plus{
+	color:#fff;
+}
+
+/* RELATÓRIOS */
+.group{
+	display:inline;
+}
