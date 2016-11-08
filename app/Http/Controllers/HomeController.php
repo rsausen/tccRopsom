@@ -17,7 +17,8 @@ class HomeController extends Controller
     	$data = Date('Y-m-d');
     	$agenda = Agenda::where('data',$data)->orderBy('hora','asc')->get();
     	$pagamento = Pagamento::where('vencimento',$data)->where('pago','0')->get();
-        return view('base/home',compact('agenda','pagamento'));
+        $agendas = Agenda::orderBy("data","desc")->paginate(6);
+        return view('base/home',compact('agenda','pagamento','agendas'));
     }
 
     public function getCidades($id)

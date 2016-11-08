@@ -1,7 +1,7 @@
-@section('titulo', 'Agenda')
 @extends('base')
-
+@section('titulo', 'Agenda')
 @section('content')
+
 	@if (session('status'))
 		<div class="alert alert-success">
 			{{ session('status') }}
