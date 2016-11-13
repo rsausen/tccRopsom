@@ -1,7 +1,12 @@
 @extends('base')
 
 @section('content')
-
+	@if (session('status'))
+	<div class="alert alert-success">
+		{{ session('status') }}
+ 	</div>
+ 	@endif
+ 	
 	{!! Form::open(array('url' => 'calcularHoras')) !!}
     <div class="form-group">
     {!! Form::label('valor', 'Valor por hora') !!}

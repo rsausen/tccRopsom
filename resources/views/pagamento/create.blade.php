@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
     {!! Form::label('vencimento', 'Data de Vencimento') !!}
-    {!! Form::date('vencimento', null, ['class' => 'form-control', 'placeholder' => 'Informe a Data de Vencimento', 'id'=>'data']) !!}
+    {!! Form::date('vencimento', null, ['class' => 'form-control', 'placeholder' => 'Informe a Data de Vencimento', 'id'=>'datepicker']) !!}
     </div>
     <div class="form-group">
     {!! Form::label('valor', 'Valor') !!}

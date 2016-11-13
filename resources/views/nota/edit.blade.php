@@ -17,7 +17,7 @@
         </ul>
     </div>
   @endif
-  {!! Form::open(array('url' => 'nota/'.$nota->id,'method'=>'put')) !!}
+  {!! Form::open(array('url' => 'nota/'.$nota->id,'method'=>'put','files'=> true)) !!}
      	<div class="form-group">
       {!! Form::label('data', 'Data da Nota') !!}
       {!! Form::date('data', date('Y-m-d', strtotime($nota->data)), ['class' => 'form-control', 'id' => 'null']) !!}
@@ -25,6 +25,10 @@
       <div class="form-group">
       {!! Form::label('fornecedor', 'Fornecedor') !!}
       {!! Form::select('fornecedor_id', $fornecedores, $nota->fornecedor_id,['class' => 'form-control']) !!}
+      </div>
+      <div class="form-group">
+      {!! Form::label('pdfnota', 'Anexar nota') !!}
+      {!! Form::file('pdfnota', ['class' => 'form-control']) !!}
       </div>
       {!! Form::submit('Editar',['class' => 'btn btn-default btn-add']) !!}
   {!! Form::close() !!}

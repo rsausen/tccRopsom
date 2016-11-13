@@ -22,7 +22,7 @@ class FornecedorController extends Controller
 
     public function create()
     {
-        $cidades = Cidade::where('id_estado','21')->lists('nome','id');
+        $cidades = Cidade::where('id_estado','23')->lists('nome','id');
         $estados = Estado::lists('nome','id');
         return view('fornecedor/create',compact('cidades','estados'));
     }

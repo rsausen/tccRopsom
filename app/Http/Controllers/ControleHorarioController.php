@@ -10,6 +10,8 @@ use App\Controle_Horario;
 
 use App\Funcionario;
 
+use Illuminate\Support\Facades\Redirect;
+
 class ControleHorarioController extends Controller
 {
     public function index()
@@ -28,6 +30,12 @@ class ControleHorarioController extends Controller
 
     public function store(Request $request)
     {
+        $funcionario = Controle_Horario::where('funcionario_id',$request->funcionario_id)->where('ativo','0')->get();
+            foreach($funcionario as $f){
+                if($f->saida == "00:00:00"){
+                    return Redirect::back()->with('status', 'O funcionário já está trabalhando!');
+                }
+            }
         $dataLocal = date("Y-m-d");
         $horaLocal = date("H:i");
         $controle = array(
@@ -87,6 +95,12 @@ class ControleHorarioController extends Controller
         return sprintf("%d:%02d:%02d", $hours, $minutes, $seconds);
     }
     public function horas($funcID){
+        $funcionario = Controle_Horario::where('funcionario_id',$funcID)->where('ativo','0')->get();
+            foreach($funcionario as $f){
+                if($f->saida == "00:00:00"){
+                    return Redirect::back()->with('status', 'O funcionário ainda está trabalhando!');
+                }
+            }
         return view("controlehorario/pagamentos",compact("funcID"));
     }
 
@@ -96,7 +110,7 @@ class ControleHorarioController extends Controller
         $preco = str_replace('.','',$request->valor);
         $preco = str_replace(',','.',$preco);
 
-        foreach($funcionario as $f){ 
+        foreach($funcionario as $f){
             if($f->dataSaida > $f->dataEntrada){
                 $totalHrs += 86400 - ($this->time_to_sec($f->entrada));
                 $totalHrs += $this->time_to_sec($f->saida);

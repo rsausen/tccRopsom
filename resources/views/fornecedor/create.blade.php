@@ -44,7 +44,7 @@
     </div>
     <div class="form-group col-md-6 col-xs-12">
     {!! Form::label('estado_id', 'Estado') !!}
-    {!! Form::select('estado_id', $estados, '21',['class' => 'form-control']) !!}
+    {!! Form::select('estado_id', $estados, '23',['class' => 'form-control']) !!}
     </div>
     <div class="form-group col-md-6 col-xs-12">
     {!! Form::label('cidade_id', 'Cidade') !!}

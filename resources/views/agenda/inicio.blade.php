@@ -65,32 +65,6 @@
 				{{ $agendas->links() }}
 			</div>
 		</div>
-{{-- 
-		<table class="table table-striped">
-		<thead>
-		    <tr>
-		      <th>#</th>
-		      <th>Nome</th>
-		      <th>Editar</th>
-		      <th>Excluir</th>
-		    </tr>
-		</thead>
-		<tbody>
-		@foreach($agendas as $age)
-			<tr>
-			<td>{{$age->id}}</td>
-			<td>{{$age->nome}}</td>
-			<td><a href="{{url('agenda/'.$age->id.'/edit')}}" class='btn btn-default'>Editar</a></td>
-			<td>
-				{!! Form::open(['route'=>['agenda.destroy',$age->id], 'method'=>'delete'])!!}
-				{!! Form::submit('Excluir',['class' => 'btn btn-default']) !!}
-				{!! Form::close() !!}
-			</td>
-			</tr>
-		@endforeach
-		</tbody>
-		</table>
-		--}}
 	@else 
 		<div class="alert alert-danger t-center">
 			Não há agendas cadastradas. <br> <strong><a href="{{url('agenda/create')}}" class="btn btn-default">Adicionar</a></strong>

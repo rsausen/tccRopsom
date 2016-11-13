@@ -12,7 +12,7 @@ class AgendaController extends Controller
 {
     public function index()
     {
-        $agendas = Agenda::orderBy("data","desc")->paginate(6);
+        $agendas = Agenda::orderBy("data","asc")->paginate(6);
         return view('agenda/inicio',compact("agendas"));
     }
 
@@ -63,6 +63,6 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         Agenda::find($id)->delete();
-        return redirect('agenda')->with('status', 'Agenda excluida com sucesso!');
+        return redirect('agenda')->with('status', 'Agenda excluída com sucesso!');
     }
 }

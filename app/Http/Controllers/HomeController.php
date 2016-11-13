@@ -15,10 +15,11 @@ class HomeController extends Controller
     public function index()
     {
     	$data = Date('Y-m-d');
-    	$agenda = Agenda::where('data',$data)->orderBy('hora','asc')->get();
-    	$pagamento = Pagamento::where('vencimento',$data)->where('pago','0')->get();
-        $agendas = Agenda::orderBy("data","desc")->paginate(6);
-        return view('base/home',compact('agenda','pagamento','agendas'));
+    	$agendas = Agenda::where('data',$data)->orderBy('hora','asc')->paginate(6);
+    	$pagamentos = Pagamento::where('vencimento',$data)->where('pago','0')->paginate(6);
+        $qntAgenda = Agenda::where('data',$data)->count();
+        $qntPagamento = Pagamento::where('vencimento',$data)->where('pago','0')->count();
+        return view('base/home',compact('agenda','pagamento','agendas','pagamentos','qntAgenda','qntPagamento'));
     }
 
     public function getCidades($id)
@@ -29,8 +30,6 @@ class HomeController extends Controller
 
     public function pagar($id){
         $controle = Controle_Horario::where('funcionario_id',$id)->get();
-
-
         return redirect('honorario')->with('status', 'Honorários quitados!');
     }
 

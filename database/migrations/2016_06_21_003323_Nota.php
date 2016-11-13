@@ -14,6 +14,7 @@ class Nota extends Migration
             $table->date('data');
             $table->integer('fornecedor_id')->unsigned();
             $table->foreign('fornecedor_id')->references('id')->on('fornecedor');
+            $table->string('pdfnota');
             $table->timestamps();
         });
     }

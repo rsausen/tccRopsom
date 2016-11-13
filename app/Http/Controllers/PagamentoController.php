@@ -12,7 +12,7 @@ class PagamentoController extends Controller
 {
     public function index()
     {
-        $pagamentos = Pagamento::orderBy("created_at","desc")->get();
+        $pagamentos = Pagamento::orderBy("vencimento","asc")->paginate(6);
         return view('pagamento/inicio',compact("pagamentos"));
     }
 
@@ -79,6 +79,6 @@ class PagamentoController extends Controller
     public function destroy($id)
     {
         Pagamento::find($id)->delete();
-        return redirect('pagamento');
+        return redirect('pagamento')->with('status', 'Pagamento excluído com sucesso!');
     }
 }

@@ -11,6 +11,9 @@ use App\Fornecedor;
 use App\Produto;
 use App\Item_Nota;
 
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+
 class NotaController extends Controller
 {
     public function index()
@@ -33,14 +36,30 @@ class NotaController extends Controller
     public function store(NotaRequest $request)
     {
         $data = implode('-', array_reverse(explode('/', $request->data)));
-        $registro = array(
-            'data'=>$data,
-            'fornecedor_id'=>$request->fornecedor_id
-        );
-        $rg = Nota::create($registro);
-        $nota = $rg->id;
-        
-        return redirect("item/".$nota);
+
+        if (isset($request->pdfnota)){
+            $arquivo = $request->file('pdfnota');
+            $nome = $arquivo->getClientOriginalName();
+            File::makeDirectory(public_path().'/pdfnota/',$mode = 0777, true, true);
+            $arquivo->move('pdfnota/', $nome);
+            //Image::make(sprintf('pdfnota/%s', $nome))->save();
+
+            $notas = array(
+                'data'=>$data,
+                'fornecedor_id'=>$request->fornecedor_id,
+                'pdfnota'=>'pdfnota/'.$nome,
+            );
+            $rg = Nota::create($notas);
+            $nota = $rg->id;
+        }else{
+            $registro = array(
+                'data'=>$data,
+                'fornecedor_id'=>$request->fornecedor_id
+            );
+            $rg = Nota::create($registro);
+            $nota = $rg->id;
+        }
+    return redirect("item/".$nota);
     }
 
     public function show($id)
@@ -58,16 +77,36 @@ class NotaController extends Controller
     public function update(NotaRequest $request, $id)
     {
         $data = implode('-', array_reverse(explode('/', $request->data)));
-        $nota = array(
-            'data'=>$data,
-            'fornecedor_id'=>$request->fornecedor_id
-        );
-        Nota::find($id)->update($nota);
+
+        if (isset($request->pdfnota)){
+            $exclusao = Nota::find($id);
+            File::delete($exclusao->pdfnota);
+            $arquivo = $request->file('pdfnota');
+            $nome = $arquivo->getClientOriginalName();
+            File::makeDirectory(public_path().'/pdfnota/',$mode = 0777, true, true);
+            $arquivo->move('pdfnota/', $nome);
+            //Image::make(sprintf('pdfnota/%s', $nome))->save();
+
+            $notas = array(
+                'data'=>$data,
+                'fornecedor_id'=>$request->fornecedor_id,
+                'pdfnota'=>'pdfnota/'.$nome,
+            );
+            Nota::find($id)->update($notas);
+        }else{
+            $registro = array(
+                'data'=>$data,
+                'fornecedor_id'=>$request->fornecedor_id
+            );
+            Nota::find($id)->update($registro);
+        }
         return redirect("nota");
     }
 
     public function destroy($id)
     {
+        $exclusao = Nota::find($id);
+        File::delete($exclusao->pdfnota);
         Nota::find($id)->delete();
         return redirect('nota');
     }

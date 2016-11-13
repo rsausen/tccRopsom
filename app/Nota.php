@@ -8,7 +8,7 @@ class Nota extends Model
 {
     //
     protected $table="nota";
-    protected $fillable=["item_id","total","data","fornecedor_id"];
+    protected $fillable=["item_id","total","data","fornecedor_id","pdfnota"];
 
     public function fornecedor(){
     	return $this->belongsTo('App\Fornecedor');
