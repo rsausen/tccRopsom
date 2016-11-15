@@ -9,7 +9,7 @@ class CategoryComposer {
     
  		$data = Date('Y-m-d');
     	$qntAgenda = Agenda::where('data',$data)->count();
-    	$qntPagamento = Pagamento::where('vencimento',$data)->where('pago','0')->count();
+    	$qntPagamento = Pagamento::where('vencimento', '<', $data)->where('pago','0')->count();
         $view->with(compact('qntPagamento', 'qntAgenda'));
     }
  

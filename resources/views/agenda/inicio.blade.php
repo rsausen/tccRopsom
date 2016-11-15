@@ -62,7 +62,7 @@
 		@endforeach
 		<div class="row">
 			<div class="col-xs-12 t-center">
-				{{ $agendas->links() }}
+				{{ $agendas->render() }}
 			</div>
 		</div>
 	@else 

@@ -8,11 +8,34 @@ use App\Http\Requests;
 
 use App\Pagamento;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class PagamentoController extends Controller
 {
     public function index()
     {
-        $pagamentos = Pagamento::orderBy("vencimento","asc")->paginate(6);
+        $hoje = Carbon::now();
+        $hoje = $hoje->format('Y-m-d');
+        $pagamentosAtrasado = Pagamento::where('vencimento', "<", $hoje)->where("pago", "0")->get();
+        $pagamentosHoje = Pagamento::where('vencimento', "=", $hoje)->get();
+        $pagamentosPassado = Pagamento::where('vencimento', "<", $hoje)->where("pago", "1")->get();
+        $pagamentosFuturo = Pagamento::where('vencimento', ">", $hoje)->get();
+        $aux = $pagamentosAtrasado->merge($pagamentosHoje);
+        $aux = $aux->merge($pagamentosFuturo);
+        $pagamentos = $aux->merge($pagamentosPassado);
+
+
+        $perPage = 6;
+        $currentPage = Input::get('page') ?: 1;
+        $slice_init = ($currentPage == 1) ? 0 : (($currentPage*$perPage)-$perPage);
+        $pagedData = $pagamentos->slice($slice_init, $perPage)->all();
+        $pagamentos = new LengthAwarePaginator($pagedData, count($pagamentos), $perPage, $currentPage);
+        $pagamentos ->setPath('pagamento');
+     
+        //$pagamentos = Pagamento::orderBy("vencimento","asc")->paginate(6);
         return view('pagamento/inicio',compact("pagamentos"));
     }
 
@@ -79,6 +102,6 @@ class PagamentoController extends Controller
     public function destroy($id)
     {
         Pagamento::find($id)->delete();
-        return redirect('pagamento')->with('status', 'Pagamento excluído com sucesso!');
+        return back()->with('status', 'Pagamento excluído com sucesso!');
     }
 }

@@ -9135,4 +9135,17 @@ table.dataTable thead .sorting:after {
   }
 }
 
+.home {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 30px;
+}
+
+.home > span {
+  font-size: 20px;
+}
+
+.pagamentos > p {
+  margin-bottom: 5px;
+}
 /*# sourceMappingURL=style.css.map */

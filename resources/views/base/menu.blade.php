@@ -18,20 +18,13 @@
 
 		<li class="text">
 			
-			@if($qntAgenda == 1)
-				Você tem <b>uma</b> agenda 
-			@elseif ($qntAgenda > 1) 
-				Você tem <b>{{$qntAgenda}}</b> agendas 
-			@else
-				Você não tem agendas 
-			@endif
 
 			@if($qntPagamento == 1)
-				e tem <b>um</b> pagamento para hoje.
+				Há <b>um</b> pagamento atrasado.
 			@elseif ($qntPagamento > 1) 
-				e tem <b>{{$qntPagamento}}</b> pagamentos para hoje.
+				Há <b>{{$qntPagamento}}</b> pagamentos atrasados.
 			@else
-				e não tem pagamentos hoje.
+				Não há pagamentos atrasados.
 			@endif
 
 

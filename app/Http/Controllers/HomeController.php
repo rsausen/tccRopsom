@@ -10,16 +10,37 @@ use App\Pagamento;
 use App\Controle_Horario;
 use App\Funcionario;
 
+
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class HomeController extends Controller
 {
     public function index()
     {
-    	$data = Date('Y-m-d');
-    	$agendas = Agenda::where('data',$data)->orderBy('hora','asc')->paginate(6);
-    	$pagamentos = Pagamento::where('vencimento',$data)->where('pago','0')->paginate(6);
-        $qntAgenda = Agenda::where('data',$data)->count();
-        $qntPagamento = Pagamento::where('vencimento',$data)->where('pago','0')->count();
-        return view('base/home',compact('agenda','pagamento','agendas','pagamentos','qntAgenda','qntPagamento'));
+        $hoje = Carbon::now();
+        $hoje = $hoje->format('Y-m-d');
+
+        $agendas = Agenda::where('data', $hoje)->limit(3)->get();
+        $qntAgenda = Agenda::where('data', $hoje)->count();
+        $qntAgenda = $qntAgenda - count($agendas);
+
+        if (count($agendas)<3) {
+            $proximasAgendas = Agenda::where('data', '>', $hoje)->limit(3-count($agendas))->get();
+            $agendas = $agendas->merge($proximasAgendas);
+        }
+
+        $pagamentos = Pagamento::where('vencimento', $hoje)->get();
+        $qntPagamentos = Pagamento::where('vencimento', $hoje)->count();
+        $qntPagamentos = $qntPagamentos - count($pagamentos);
+        if (count($pagamentos)<3) {
+            $proximosPagamentos = Pagamento::where('vencimento', '>', $hoje)->limit(3-count($pagamentos))->get();
+            $pagamentos = $pagamentos->merge($proximosPagamentos);
+        }
+        
+        return view('base/home',compact('agenda','pagamento','agendas','pagamentos','qntAgenda','qntPagamentos'));
     }
 
     public function getCidades($id)
@@ -58,5 +79,5 @@ class HomeController extends Controller
         $total = ($horaFinal - $horaInicial)/3600;
         return $total;
     }
- 
+
 }

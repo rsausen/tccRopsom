@@ -8,11 +8,34 @@ use App\Http\Requests\AgendaRequest;
 
 use App\Agenda;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+
 class AgendaController extends Controller
 {
     public function index()
     {
-        $agendas = Agenda::orderBy("data","asc")->paginate(6);
+        //$agendas = Agenda::orderBy("data","asc")->paginate(6);
+        $hoje = Carbon::now();
+        $hoje = $hoje->format('Y-m-d');
+        $agendasHoje = Agenda::where('data', "=", $hoje)->get();
+        $agendasPassado = Agenda::where('data', "<", $hoje)->get();
+        $agendasFuturo = Agenda::where('data', ">", $hoje)->get();
+
+        $aux = $agendasHoje->merge($agendasFuturo);
+        $agendas = $aux->merge($agendasPassado);
+
+
+        $perPage = 6;
+        $currentPage = Input::get('page') ?: 1;
+        $slice_init = ($currentPage == 1) ? 0 : (($currentPage*$perPage)-$perPage);
+        $pagedData = $agendas->slice($slice_init, $perPage)->all();
+        $agendas = new LengthAwarePaginator($pagedData, count($agendas), $perPage, $currentPage);
+        $agendas ->setPath('agenda');
+
         return view('agenda/inicio',compact("agendas"));
     }
 
@@ -63,6 +86,6 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         Agenda::find($id)->delete();
-        return redirect('agenda')->with('status', 'Agenda excluída com sucesso!');
+        return back()->with('status', 'Agenda excluída com sucesso!');
     }
 }
