@@ -29,7 +29,7 @@
 					</div>
 					<div class="panel-data"><i class="fa fa-calendar"></i> {{date('d-m-Y', strtotime($age->data))}}  <i class="fa fa-clock-o"></i> {{$age->hora}} </div>
 					<div class="panel-footer t-center">  <a data-toggle="modal" data-target="#agenda{{$age->id}}" class='btn btn-default btn-sm'><i class="fa fa-eye"></i> Mais</a>	<a href="{{url('agenda/'.$age->id.'/edit')}}" class='btn btn-default btn-sm'><i class="fa fa-pencil"></i> Editar</a>
-						<a href="{{url('agenda/'.$age->id.'/destroy')}}" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
+						<a data-href="{{url('agenda/'.$age->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
 					</div>
 				</div>
 				@include('agenda.modal')
@@ -44,7 +44,7 @@
 						</div>
 						<div class="panel-data"><i class="fa fa-calendar"></i> {{date('d-m-Y', strtotime($age->data))}}  <i class="fa fa-clock-o"></i> {{$age->hora}} </div>
 						<div class="panel-footer t-center">  <a data-toggle="modal" data-target="#agenda{{$age->id}}" class='btn btn-default btn-sm'><i class="fa fa-eye"></i> Mais</a>	<a href="{{url('agenda/'.$age->id.'/edit')}}" class='btn btn-default btn-sm'><i class="fa fa-pencil"></i> Editar</a>
-							<a href="{{url('agenda/'.$age->id.'/destroy')}}" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
+							<a data-href="{{url('agenda/'.$age->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
 						</div>
 					</div>
 					@include('agenda.modal')	
@@ -125,7 +125,7 @@
 					</div>
 					<div class="panel-data"><i class="fa fa-calendar"></i> {{date('d-m-Y', strtotime($pag->vencimento))}} </div>
 					<div class="panel-footer t-center"><a href="{{url('pagamento/'.$pag->id.'/edit')}}" class='btn btn-default btn-sm'><i class="fa fa-pencil"></i> Editar</a>
-						<a href="{{url('pagamento/'.$pag->id.'/destroy')}}" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
+						<a  data-href="{{url('pagamento/'.$pag->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
 					</div>
 				</div>
 				@include('pagamento.modal')
@@ -139,7 +139,7 @@
 						</div>
 						<div class="panel-data"><i class="fa fa-calendar"></i> {{date('d-m-Y', strtotime($pag->vencimento))}} </div>
 						<div class="panel-footer t-center"><a href="{{url('pagamento/'.$pag->id.'/edit')}}" class='btn btn-default btn-sm'><i class="fa fa-pencil"></i> Editar</a>
-							<a href="{{url('pagamento/'.$pag->id.'/destroy')}}" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
+							<a  data-href="{{url('pagamento/'.$pag->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-default btn-sm'><i class="fa fa-trash"></i> Excluir</a> </div>
 						</div>
 					</div>
 					@include('pagamento.modal')	
@@ -190,6 +190,26 @@
 					@endif
 				</div>
 				</div>
+
+
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Excluir</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Você tem certeza que deseja excluir?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 				@endsection
 
 				{{-- <h3>Agenda</h3>

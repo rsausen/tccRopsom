@@ -11,7 +11,7 @@ class ControleHorario extends Migration
         Schema::create('controle_horario', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('funcionario_id')->unsigned();
-            $table->foreign('funcionario_id')->references('id')->on('funcionario');
+            $table->foreign('funcionario_id')->references('id')->on('funcionario')->onDelete('cascade');
             $table->time('entrada');
             $table->time('saida');
             $table->date('dataEntrada');

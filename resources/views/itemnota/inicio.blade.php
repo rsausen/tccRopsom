@@ -29,7 +29,12 @@
 		    {!! Form::label('quantidade', 'Quantidade') !!}
 		    {!! Form::text('quantidade', null,['class' => 'form-control', 'placeholder' => 'Informe a Quantidade do Produto']) !!}
 		    </div>
-		    {!! Form::submit('Cadastrar',['class' => 'btn btn-default btn-add']) !!}
+	        <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2">
+	        {!! Form::submit('Cadastrar',['class' => 'btn btn-primary btn-block btn-add']) !!}
+	        </div>
+	        <div class="col-md-4 col-sm-4 col-xs-4">
+	        <a href="{{URL::previous()}}" class="btn btn-danger btn-block">Cancelar</a> 
+	        </div>
 		{!! Form::close() !!}
 		<table class="table table-striped">
 		<thead>
@@ -37,8 +42,7 @@
 		      <th>#</th>
 		      <th>Produto</th>
 		      <th>Preço</th>
-		      <th>Editar</th>
-		      <th>Excluir</th>
+		      <th>Ações</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -47,11 +51,29 @@
 			<td>{{$item->id}}</td>
 			<td>{{$item->produtos->nome}}</td>
 			<td>R$ {{ number_format($item->preco,2,',','.') }}</td>
-			<td><a href="{{url('item/'.$item->id.'/edit')}}" class='btn btn-default'>Editar</a></td>
-			<td><a href="{{url('item/destroy/'.$item->id)}}" class='btn btn-default'>Excluir</a>
+			<td><a href="{{url('item/'.$item->id.'/edit')}}" class='btn btn-sm btn-primary'><i class="fa fa-pencil"></i>  Editar</a>
+			<a data-href="{{url('item/destroy/'.$item->id)}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i>  Excluir</a> 
 			</td>
 			</tr>
 	@endforeach
 	</tbody>
 	</table>
+
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Excluir Item Nota</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Você tem certeza que deseja excluir este item da nota? </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

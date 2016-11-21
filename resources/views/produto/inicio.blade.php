@@ -15,8 +15,7 @@
 		    <tr>
 		      <th>#</th>
 		      <th>Nome</th>
-		      <th>Editar</th>
-		      <th>Excluir</th>
+		      <th class='t-center'>Ações</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -24,13 +23,11 @@
 	<tr>
 			<td>{{$prod->id}}</td>
 			<td>{{$prod->nome}}</td>
-			<td><a href="{{url('produto/'.$prod->id.'/edit')}}" class='btn btn-default'>Editar</a></td>
-			<td>
-				{!! Form::open(['route'=>['produto.destroy',$prod->id], 'method'=>'delete'])!!}
-				{!! Form::submit('Excluir',['class' => 'btn btn-default']) !!}
-				{!! Form::close() !!}
+			<td class="t-center">
+				<a href="{{url('produto/'.$prod->id.'/edit')}}" class='btn btn-primary btn-sm'><i class="fa fa-pencil"></i> Editar</a>
+				<a href="{{url('produto/'.$prod->id.'/destroy')}}" class='btn btn-danger btn-sm'><i class="fa fa-trash"></i> Excluir</a>
 			</td>
-			</tr>
+	</tr>
 	@endforeach
 	</tbody>
 	</table>

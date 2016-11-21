@@ -105,12 +105,13 @@ class ControleHorarioController extends Controller
     }
 
     public function valorHora(Request $request){
-        $funcionario = Controle_Horario::where('funcionario_id',$request->funcID)->where('ativo','0')->get();
+        $func = Controle_Horario::where('funcionario_id',$request->funcID)->where('ativo','0')->get();
+        $funcionario = Funcionario::find($request->funcID);
         $totalHrs = 0;
         $preco = str_replace('.','',$request->valor);
         $preco = str_replace(',','.',$preco);
 
-        foreach($funcionario as $f){
+        foreach($func as $f){
             if($f->dataSaida > $f->dataEntrada){
                 $totalHrs += 86400 - ($this->time_to_sec($f->entrada));
                 $totalHrs += $this->time_to_sec($f->saida);
@@ -129,7 +130,7 @@ class ControleHorarioController extends Controller
         
         $valorTotal = ($totalHrs / 3600) * $preco;
 
-        return view("controlehorario/valores",compact("totalHoras","funcionario",'valorTotal'));
+        return view("controlehorario/valores",compact("totalHoras","func", 'funcionario', 'valorTotal'));
     }
 
     public function destroy($id)

@@ -24,8 +24,10 @@
 		    <tr>
 		      <th>#</th>
 		      <th>Nome</th>
+		      <th>Entrada</th>
 		      <th>Saída</th>
-		      <th>Pagamento</th>
+		      <th>Ações</th>
+
 		    </tr>
 		</thead>
 		<tbody>
@@ -34,15 +36,16 @@
 		<tr>
 			<td>{{$hor->id}}</td>
 			<td>{{$hor->funcionario->nome}}</td>
+			<td>{{$hor->entrada}}</td>
 			<td>
 				@if($hor->saida != '00:00:00')
-						<button type="button" class="btn btn-default" disabled="disabled">Encerrado</button>
+						{{$hor->saida}}
 				@else
-				<a href="{{url('horario/arquivar/'.$hor->id)}}" class='btn btn-default'>Encerrar</a>
+				<a href="{{url('horario/arquivar/'.$hor->id)}}" class='btn btn-sm btn-warning'><i class="fa fa-power-off" aria-hidden="true"></i> Encerrar</a>
 				@endif
 			</td>
-			<td><a href="{{url('pagar/'.$hor->funcionario_id)}}" class='btn btn-default'>Pagar</a></td>
-			<td><a href="{{url('horario/'.$hor->id.'/edit')}}" class='btn btn-default'>Editar</a></td>
+			<td><a href="{{url('pagar/'.$hor->funcionario_id)}}" class='btn btn-success btn-sm'><i class="fa fa-dollar"></i> Pagar</a>
+			<a href="{{url('horario/'.$hor->id.'/edit')}}" class='btn btn-primary btn-sm' ><i class="fa fa-pencil"></i> Editar</a></td>
 		</tr>
 	@endif
 	@endforeach

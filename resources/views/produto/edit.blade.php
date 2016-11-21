@@ -20,8 +20,13 @@
 	{!! Form::open(array('url' => 'produto/'.$produto->id,'method'=>'put')) !!}
 		<div class="form-group">
 	    {!! Form::label('nome', 'Nome') !!}
-	    {!! Form::text('nome', $produto->nome) !!}
-	    </div>
-	    {!! Form::submit('Editar',['class' => 'btn btn-default btn-add']) !!}
+	    {!! Form::text('nome', $produto->nome, ['class' => 'form-control', 'placeholder' => 'Informe o Nome']) !!}
+	  </div>
+      <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2">
+      {!! Form::submit('Editar',['class' => 'btn btn-primary btn-block btn-add']) !!}
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4">
+      <a href="{{URL::previous()}}" class="btn btn-danger btn-block">Cancelar</a> 
+      </div>
 	{!! Form::close() !!}
 @endsection

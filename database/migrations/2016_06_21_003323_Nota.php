@@ -13,7 +13,7 @@ class Nota extends Migration
             $table->decimal('total');
             $table->date('data');
             $table->integer('fornecedor_id')->unsigned();
-            $table->foreign('fornecedor_id')->references('id')->on('fornecedor');
+            $table->foreign('fornecedor_id')->references('id')->on('fornecedor')->onDelete('cascade');
             $table->string('pdfnota');
             $table->timestamps();
         });

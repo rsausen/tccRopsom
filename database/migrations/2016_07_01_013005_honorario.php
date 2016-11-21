@@ -11,7 +11,7 @@ class Honorario extends Migration
         Schema::create('honorario', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('funcionario_id')->unsigned();
-            $table->foreign('funcionario_id')->references('id')->on('funcionario');
+            $table->foreign('funcionario_id')->references('id')->on('funcionario')->onDelete('cascade');
             $table->string('horas');
             $table->decimal('valor');
             $table->timestamps();

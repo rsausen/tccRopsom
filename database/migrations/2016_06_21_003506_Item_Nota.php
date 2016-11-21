@@ -16,9 +16,9 @@ class ItemNota extends Migration
         Schema::create('item_nota', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('produto_id')->unsigned();
-            $table->foreign('produto_id')->references('id')->on('produto');
+            $table->foreign('produto_id')->references('id')->on('produto')->onDelete('cascade');
             $table->integer('nota_id')->unsigned();
-            $table->foreign('nota_id')->references('id')->on('nota');
+            $table->foreign('nota_id')->references('id')->on('nota')->onDelete('cascade');
             $table->decimal('preco');
             $table->integer('quantidade');
             $table->timestamps();

@@ -100,7 +100,7 @@ class NotaController extends Controller
             );
             Nota::find($id)->update($registro);
         }
-        return redirect("nota");
+        return redirect("nota")->with('status', 'Nota atualizada com sucesso!');
     }
 
     public function destroy($id)
@@ -108,6 +108,6 @@ class NotaController extends Controller
         $exclusao = Nota::find($id);
         File::delete($exclusao->pdfnota);
         Nota::find($id)->delete();
-        return redirect('nota');
+        return redirect('nota')->with('status', 'Nota excluida com sucesso!');
     }
 }

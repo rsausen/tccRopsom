@@ -1,6 +1,10 @@
  @extends('base')
 
 @section('content')
-	Valor total: {{$valorTotal}}<br>
-	Total de Horas: {{$totalHoras}}<br>
+<div class="alert alert-info" role="alert" style="text-align: center;">
+ 	<h3 style="margin-top: 0px">Pronto!</h3>
+ 	O valor total do pagamento para {{$funcionario->nome}} é de <strong>{{$valorTotal}}</strong>, referente à {{$totalHoras}} horas trabalhadas.
+ 	<br>
+ 	<a href="{{url('/horario')}}" class="btn btn-info">Voltar</a>
+</div>
 @endsection

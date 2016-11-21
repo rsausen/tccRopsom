@@ -98,9 +98,16 @@ $('#dataSaida').mask('00/00/0000');
 $('#dt').mask('00/00/0000');
 $('#cnpj').mask('00.000.000/0000-00');
 $('#telefone').mask('(00) 0000-0000');
+$('#telefone_responsavel').mask('(00) 0000-0000');
+
 
 
 $('#valor').maskMoney({thousands:'.',decimal:','});
+
+$('#confirm-delete').on('show.bs.modal', function(e) {
+    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+});
+
 
 $('select[name=estado_id]').change(function () {
   var id = $(this).val();

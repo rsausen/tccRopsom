@@ -20,11 +20,11 @@
 			
 
 			@if($qntPagamento == 1)
-				Há <b>um</b> pagamento atrasado.
+				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Há <b>um</b> pagamento atrasado.
 			@elseif ($qntPagamento > 1) 
-				Há <b>{{$qntPagamento}}</b> pagamentos atrasados.
+				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Há <b>{{$qntPagamento}}</b> pagamentos atrasados.
 			@else
-				Não há pagamentos atrasados.
+				
 			@endif
 
 

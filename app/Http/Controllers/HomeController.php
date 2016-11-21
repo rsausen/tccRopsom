@@ -36,7 +36,7 @@ class HomeController extends Controller
         $qntPagamentos = Pagamento::where('vencimento', $hoje)->count();
         $qntPagamentos = $qntPagamentos - count($pagamentos);
         if (count($pagamentos)<3) {
-            $proximosPagamentos = Pagamento::where('vencimento', '>', $hoje)->limit(3-count($pagamentos))->get();
+            $proximosPagamentos = Pagamento::where('vencimento', '>', $hoje)->where('pago', '0')->limit(3-count($pagamentos))->get();
             $pagamentos = $pagamentos->merge($proximosPagamentos);
         }
         

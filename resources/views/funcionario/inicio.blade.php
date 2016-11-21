@@ -16,8 +16,7 @@
 		      <th>#</th>
 		      <th>Nome</th>
 		      <th>Telefone</th>
-		      <th>Editar</th>
-		      <th>Excluir</th>
+		      <th>Ações</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -26,14 +25,29 @@
 			<td>{{$func->id}}</td>
 			<td>{{$func->nome}}</td>
 			<td>{{$func->telefone}}</td>
-			<td><a href="{{url('funcionario/'.$func->id.'/edit')}}" class='btn btn-default'>Editar</a></td>
-			<td>
-				{!! Form::open(['route'=>['funcionario.destroy',$func->id], 'method'=>'delete'])!!}
-				{!! Form::submit('Excluir',['class' => 'btn btn-default']) !!}
-				{!! Form::close() !!}
-			</td>
+			<td><a href="{{url('funcionario/'.$func->id.'/edit')}}" class='btn btn-primary btn-sm'><i class="fa fa-pencil"></i> Editar</a>
+				<a class='btn btn-danger btn-sm' data-href="{{url('funcionario/'.$func->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i> Excluir</a>
+				</td>
 			</tr>
 	@endforeach
 	</tbody>
 	</table>
+
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Excluir Funcionário</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Você tem certeza que deseja excluir este funcionário?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

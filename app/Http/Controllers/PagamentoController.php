@@ -21,12 +21,12 @@ class PagamentoController extends Controller
         $hoje = $hoje->format('Y-m-d');
         $pagamentosAtrasado = Pagamento::where('vencimento', "<", $hoje)->where("pago", "0")->get();
         $pagamentosHoje = Pagamento::where('vencimento', "=", $hoje)->get();
-        $pagamentosPassado = Pagamento::where('vencimento', "<", $hoje)->where("pago", "1")->get();
-        $pagamentosFuturo = Pagamento::where('vencimento', ">", $hoje)->get();
-        $aux = $pagamentosAtrasado->merge($pagamentosHoje);
-        $aux = $aux->merge($pagamentosFuturo);
-        $pagamentos = $aux->merge($pagamentosPassado);
+        $pagamentosPassado = Pagamento::where('vencimento', "!=", $hoje)->where("pago", "1")->orderBy('vencimento', 'asc')->get();
+        $pagamentosPendente = Pagamento::where('vencimento', ">", $hoje)->where("pago", "0")->get();
 
+        $aux = $pagamentosAtrasado->merge($pagamentosHoje);
+        $aux = $aux->merge($pagamentosPendente);
+        $pagamentos = $aux->merge($pagamentosPassado);
 
         $perPage = 6;
         $currentPage = Input::get('page') ?: 1;
@@ -64,7 +64,7 @@ class PagamentoController extends Controller
         );
         //dd($pagamento);
         Pagamento::create($pagamento);
-        return redirect("pagamento");
+        return redirect("pagamento")->with('status', 'Pagamento cadastrado com sucesso!');
     }
 
     public function show($id)
@@ -96,7 +96,7 @@ class PagamentoController extends Controller
             'pago'=>$pago
         );
         Pagamento::find($id)->update($pagamento);
-        return redirect("pagamento");
+        return redirect("pagamento")->with('status', 'Pagamento alterado com sucesso!');;
     }
 
     public function destroy($id)
