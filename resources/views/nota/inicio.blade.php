@@ -21,7 +21,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Preço</th>
+			<th>Total</th>
 			<th>Data</th>
 			<th>Fornecedor</th>
 			<th>Ações</th>
@@ -35,7 +35,7 @@
 			<td>{{$not->data}}</td>
 			<td>{{$not->fornecedor->nome}}</td>
 			<td>
-				<a href="{{url('item/'.$not->id)}}" class='btn btn-success btn-sm'><i class="fa fa-plus"></i>Adicionar</a>
+				<a href="{{url('item/'.$not->id)}}" class='btn btn-success btn-sm'><i class="fa fa-plus"></i> Itens</a>
 				<a href="{{url('nota/'.$not->id.'/edit')}}" class='btn btn-primary btn-sm'><i class="fa fa-pencil"></i> Editar</a>
 				<a data-href="{{url('nota/'.$not->id.'/destroy')}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-danger btn-sm'><i class="fa fa-trash"></i> Excluir</a>
 			</td>

@@ -9,7 +9,7 @@
  	
 	{!! Form::open(array('url' => 'calcularHoras')) !!}
     <div class="form-group">
-    {!! Form::label('valor', 'Valor por hora') !!}
+    {!! Form::label('valor', 'Valor a ser pago por hora') !!}
     {!! Form::text('valor',null, ['class' => 'form-control']) !!}
     </div>
     <input type='hidden' value='{{$funcID}}' name='funcID'>

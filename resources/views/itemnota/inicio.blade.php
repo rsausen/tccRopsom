@@ -1,10 +1,14 @@
 @extends('base')
+ 
+@section('titulo')
+Adicionando itens à Nota
+@endsection
 
 @section('content')
 		<ol class="breadcrumb">
 		  <li><a href="{{url('/')}}">Início</a></li>
 		  <li><a href="{{url('nota/')}}">Nota</a></li>
-		  <li class="active">Item Nota Fiscal</li>
+		  <li class="active">Novo Item</li>
 		</ol>
 		@if (count($errors) > 0)
 		      <div class="alert alert-danger">
@@ -42,6 +46,7 @@
 		      <th>#</th>
 		      <th>Produto</th>
 		      <th>Preço</th>
+		      <th>Quantidade</th>
 		      <th>Ações</th>
 		    </tr>
 		</thead>
@@ -51,6 +56,7 @@
 			<td>{{$item->id}}</td>
 			<td>{{$item->produtos->nome}}</td>
 			<td>R$ {{ number_format($item->preco,2,',','.') }}</td>
+			<td>{{$item->quantidade}}</td>
 			<td><a href="{{url('item/'.$item->id.'/edit')}}" class='btn btn-sm btn-primary'><i class="fa fa-pencil"></i>  Editar</a>
 			<a data-href="{{url('item/destroy/'.$item->id)}}" data-toggle="modal" data-target="#confirm-delete" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i>  Excluir</a> 
 			</td>

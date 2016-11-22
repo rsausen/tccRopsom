@@ -7,6 +7,9 @@
 		  <li><a href="{{url('/')}}">Início</a></li>
 		  <li class="active">Fornecedor</li>
 		</ol>
+		<div class='col-sm-12 col-lg-12'>
+		<a href="{{url('fornecedor/create')}}" type="button" class='btn btn-default adicionar pull-right'>Adicionar</a>
+		</div>
 	@if (count($fornecedores) > 0)
 		<table class="table table-responsive table-striped">
 		<thead>
