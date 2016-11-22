@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('titulo', 'Relatório Notas')
+@section('titulo', 'Relatório das Notas Fiscais')
 
 @section('content')
 <ol class="breadcrumb">
@@ -12,25 +12,25 @@
 
 {!! Form::open(array('url' => 'total')) !!}
 <div class="form-group">
-	{!! Form::label('dt1', 'Início') !!}
+	{!! Form::label('dt1', 'Data Inicial') !!}
 	{!! Form::date('dtInicio', null, ['class' => 'form-control','id'=> 'datepicker']) !!}
 </div>
 <div class="form-group">
-	{!! Form::label('dt2', 'Final') !!}
+	{!! Form::label('dt2', 'Data Final') !!}
 	{!! Form::date('dtFinal', null, ['class' => 'form-control','id'=> 'datepicker2']) !!}
 </div>
 <div class="form-group">
-	{!! Form::label('fornecedor', 'Fornecedor') !!}
+	{!! Form::label('fornecedor', 'Notas do Fornecedor') !!}
 	{!! Form::select('fornecedor', $fornecedores, null, ['class' => 'form-control','id'=> 'fornecedor', "placeholder"=>"Selecione o Fornecedor"]) !!}
 </div>
 <div class="form-group">
-	{!! Form::label('produto', 'Produto') !!}
+	{!! Form::label('produto', 'Notas que contenham o Produto') !!}
 	{!! Form::select('produto', $produtos, null, ['class' => 'form-control','id'=> 'produto', "placeholder"=>"Selecione o Produto"]) !!}
 </div>		    
 {!! Form::submit('Buscar',['class' => 'btn btn-primary btn-add']) !!}
 {!! Form::close() !!}
 
-<h3>Total das Notas: R$ {{ number_format($total,2,',','.') }}</h3>
+<h3>Total de todas as Notas: R$ {{ number_format($total,2,',','.') }}</h3>
 <hr>
 @foreach($notas as $key => $nt)
 <div class="panel panel-default">

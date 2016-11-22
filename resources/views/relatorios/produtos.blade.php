@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('titulo', 'Relatório Produtos')
+@section('titulo', 'Relatório do total adquirido para um produto')
 
 @section('content')
 		<ol class="breadcrumb">
@@ -12,11 +12,11 @@
 
 		{!! Form::open(array('url' => 'totalProdutos')) !!}
 		    <div class="form-group">
-		    {!! Form::label('dt1', 'Início') !!}
+		    {!! Form::label('dt1', 'Data Inicial') !!}
 		    {!! Form::date('dtInicio', null, ['class' => 'form-control','id'=> 'datepicker']) !!}
 		    </div>
 		    <div class="form-group">
-		    {!! Form::label('dt2', 'Final') !!}
+		    {!! Form::label('dt2', 'Data Final') !!}
 		    {!! Form::date('dtFinal', null, ['class' => 'form-control','id'=> 'datepicker2']) !!}
 		    </div>
 		    <div class="form-group">
@@ -26,14 +26,15 @@
     		{!! Form::submit('Buscar',['class' => 'btn btn-default btn-add']) !!}
 		{!! Form::close() !!}
 
-		@if ($total)
-		<h3>Total dos Produtos: R$ {{ number_format($total,2,',','.') }}</h3>
-		@endif
-		<hr>
 		@foreach($produtos as $key => $pd)
-			<div class="group"><h4>Quantidade do Produto: {{$quantidade}}</h4></div>
-			<div class="group"><h4>Produto: {{$pd->nome}}</h4></div>
+		@if ($total)
+		<h3>Período: {{$pd->dtInicio}} a {{$pd->dtFinal}}</h3>
 			<hr>
+			<div class="group"><h4>Produto: {{$pd->nome}}</h4></div>
+			<div class="group"><h4>Total: R$ {{ number_format($total,2,',','.') }}</h4></div>
+			<div class="group"><h4>Quantidade: {{$quantidade}}</h4></div>
+			<hr>
+		@endif
 		@endforeach
 		
 @endsection

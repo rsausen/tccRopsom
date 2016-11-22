@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('titulo', 'Relatório Pagamentos')
+@section('titulo', 'Relatório dos Pagamentos')
 
 @section('content')
 		<ol class="breadcrumb">
@@ -12,17 +12,17 @@
 
 		{!! Form::open(array('url' => 'totalPagamentos')) !!}
 		    <div class="form-group">
-		    {!! Form::label('dt1', 'Início') !!}
+		    {!! Form::label('dt1', 'Data Inicial') !!}
 		    {!! Form::date('dtInicio', null, ['class' => 'form-control','id'=> 'datepicker']) !!}
 		    </div>
 		    <div class="form-group">
-		    {!! Form::label('dt2', 'Final') !!}
+		    {!! Form::label('dt2', 'Data Final') !!}
 		    {!! Form::date('dtFinal', null, ['class' => 'form-control','id'=> 'datepicker2']) !!}
 		    </div>		    
     		{!! Form::submit('Buscar',['class' => 'btn btn-default btn-add']) !!}
 		{!! Form::close() !!}
 
-		<h3>Total dos Pagamentos: R$ {{ number_format($total,2,',','.') }}</h3>
+		<h3>Total dos Pagamentos no Período: R$ {{ number_format($total,2,',','.') }}</h3>
 		<hr>
 		@foreach($pagamentos as $key => $pg)
 			<div class="group"><h4>Data do Pagamento: {{ implode('/', array_reverse(explode('-', $pg->vencimento))) }}</h4></div>
